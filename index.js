@@ -24,72 +24,72 @@ bot.on("message", async message => {
     if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
     var chid = args[0];
     db.set('msgchannel', chid);
-    db.fetch('msgchannel').then ( id =>
+    db.fetch('msgchannel').then ( id => {
       var msgchannelEmbed = new Discord.RichEmbed()
       .setDescription(`Join/Leave Message channel set to ID: ${id}`)
-      message.channel.send(msgchannelEmbed));
+      message.channel.send(msgchannelEmbed)});
   }
 
   if (cmd == `${prefix}msgchannel`) {
     if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
-    db.fetch('msgchannel').then ( id =>
+    db.fetch('msgchannel').then ( id => {
       var msgchannelEmbed = new Discord.RichEmbed()
       .setDescription(`Join/Leave Message channel ID: ${id}`)
-      message.channel.send(msgchannelEmbed));
+      message.channel.send(msgchannelEmbed)});
   }
 
   if (cmd == `${prefix}setjoinmessage`) {
     if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
     var jmsg = args.join(" ");
     db.set('joinmessage', jmsg);
-    db.fetch('joinmessage').then ( msg =>
+    db.fetch('joinmessage').then ( msg => {
       var joinmsgEmbed = new Discord.RichEmbed()
       .setDescription(`Join Message set to: ${msg}`)
-      message.channel.send(joinmsgEmbed));
+      message.channel.send(joinmsgEmbed)});
   }
 
   if (cmd == `${prefix}joinmsg`) {
     if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
-    db.fetch('joinmessage').then ( msg =>
+    db.fetch('joinmessage').then ( msg => {
       var joinmsgEmbed = new Discord.RichEmbed()
       .setDescription(`Join Message: ${msg}`)
-      message.channel.send(joinmsgEmbed));
+      message.channel.send(joinmsgEmbed)});
   }
 
   if (cmd == `${prefix}setleavemessage`) {
     if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
     var lmsg = args.join(" ");
     db.set('leavemessage', lmsg);
-    db.fetch('leavemessage').then ( msg =>
+    db.fetch('leavemessage').then ( msg => {
       var leavemsgEmbed = new Discord.RichEmbed()
       .setDescription(`Leave Message set to: ${msg}`)
-      message.channel.send(msgchannelEmbed));
+      message.channel.send(msgchannelEmbed)});
   }
 
   if (cmd == `${prefix}leavemsg`) {
     if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
-    db.fetch('leavemessage').then ( msg =>
+    db.fetch('leavemessage').then ( msg => {
       var leavemsgEmbed = new Discord.RichEmbed()
       .setDescription(`Leave Message: ${msg}`)
-      message.channel.send(msgchannelEmbed));
+      message.channel.send(msgchannelEmbed)});
   }
 
   if (cmd == `${prefix}setdmmessage`) {
     if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
     var dmmsg = args.join(" ");
     db.set('dmmessage', dmmsg);
-    db.fetch('dmmessage').then ( msg =>
+    db.fetch('dmmessage').then ( msg => {
       var DMmsgEmbed = new Discord.RichEmbed()
       .setDescription(`Join DM Message set to: ${msg}`)
-      message.channel.send(DMmsgEmbed));
+      message.channel.send(DMmsgEmbed)});
   }
 
   if (cmd == `${prefix}dmmsg`) {
     if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
-    db.fetch('dmmessage').then ( msg =>
+    db.fetch('dmmessage').then ( msg => {
       var DMmsgEmbed = new Discord.RichEmbed()
       .setDescription(`Join DM Message: ${msg}`)
-      message.channel.send(DMmsgEmbed));
+      message.channel.send(DMmsgEmbed)});
   }
 });
 
