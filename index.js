@@ -195,7 +195,7 @@ bot.on('guildMemberRemove', member => {
       var lm = l.replace('{user}', member).replace('{members}', member.guild.memberCount);
       var Leave = new Discord.RichEmbed()
       .setDescription(lm)
-      .setColor("#1fba2f")
+      .setColor("#1fba2a")
       msgCh.send(Leave);
     })
   })
