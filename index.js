@@ -75,7 +75,7 @@ bot.on("message", async message => {
     con.query("SELECT * FROM donbotconfig WHERE name = 'joinmessage'", (err, rows) => {
       if(err) throw err;
 
-      let msg = rows.value;
+      let msg = rows.join(" ").value;
       var joinmsgEmbed = new Discord.RichEmbed()
       .setDescription(`Join Message: ${msg}`);
       message.channel.send(joinmsgEmbed);
