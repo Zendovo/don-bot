@@ -93,4 +93,29 @@ bot.on("message", async message => {
   }
 });
 
+bot.on('guildMemberAdd', member => {
+  db.fetch(`msgchannel`).then (i => {
+    db.fetch(`dmmessage`).then (dm => {
+      db.fetch(`joinmessage`).then (j => {
+        let Join = new Discord.RichEmbed()
+        .setDescription(j)
+        .setColor("#1fba2f")
+        i.send(Join);
+        member.send(dm);
+      })
+    })
+  })
+});
+
+bot.on('guildMemberRemove', member => {
+  db.fetch(`msgchannel`).then (i => {
+    db.fetch(`leavemessage`).then (l => {
+      let Leave = new Discord.RichEmbed()
+      .setDescription(l)
+      .setColor("#1fba2f")
+      i.send(Leave);
+    })
+  })
+});
+
 bot.login(process.env.token);
