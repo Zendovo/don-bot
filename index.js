@@ -163,7 +163,7 @@ bot.on('guildMemberAdd', member => {
       if(err) throw err;
 
       let dm = rows[0].value;
-      member.channel.send(dm);
+      member.send(dm);
       con.query("SELECT * FROM donbotconfig WHERE name = 'joinmessage'", (err, rows) => {
         if(err) throw err;
 
