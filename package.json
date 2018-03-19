@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "discord.js": "^11.3.2",
-    "edit-json-file": "^1.0.8",
+    "quick.db": "*",
     "fs": "0.0.1-security",
     "npm": "^5.7.1",
     "nodemon": "^1.17.2"
