@@ -1,9 +1,9 @@
 const Discord = require("discord.js");
-const editJsonFile = require("edit-json-file");
 
-module.exports.run = async (bot, message, args, file) => {
+module.exports.run = async (bot, message, args, db) => {
   var chid = args[0];
-  file.set(`"msgchannel"`, chid);
+  db.set('msgchannel', chid)
+  db.fetch('msgchannel').then ( id => message.channel.send(`Join/Leave Message channel set to ID: ${id}`));
 }
 
 module.exports.help = {
