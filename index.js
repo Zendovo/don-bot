@@ -21,6 +21,7 @@ bot.on("message", async message => {
   let args = messageArray.slice(1);
 
   if (cmd == `${prefix}setmsgchannel`) {
+    if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
     var chid = args[0];
     db.set('msgchannel', chid);
     db.fetch('msgchannel').then ( id =>
@@ -30,6 +31,7 @@ bot.on("message", async message => {
   }
 
   if (cmd == `${prefix}msgchannel`) {
+    if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
     db.fetch('msgchannel').then ( id =>
       let msgchannelEmbed = new Discord.RichEmbed()
       .setDescription(`Join/Leave Message channel ID: ${id}`)
@@ -37,6 +39,7 @@ bot.on("message", async message => {
   }
 
   if (cmd == `${prefix}setjoinmessage`) {
+    if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
     var jmsg = args.join(" ");
     db.set('joinmessage', jmsg);
     db.fetch('joinmessage').then ( msg =>
@@ -46,6 +49,7 @@ bot.on("message", async message => {
   }
 
   if (cmd == `${prefix}joinmsg`) {
+    if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
     db.fetch('joinmessage').then ( msg =>
       let joinmsgEmbed = new Discord.RichEmbed()
       .setDescription(`Join Message: ${msg}`)
@@ -53,6 +57,7 @@ bot.on("message", async message => {
   }
 
   if (cmd == `${prefix}setleavemessage`) {
+    if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
     var lmsg = args.join(" ");
     db.set('leavemessage', lmsg);
     db.fetch('leavemessage').then ( msg =>
@@ -62,6 +67,7 @@ bot.on("message", async message => {
   }
 
   if (cmd == `${prefix}leavemsg`) {
+    if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
     db.fetch('leavemessage').then ( msg =>
       let leavemsgEmbed = new Discord.RichEmbed()
       .setDescription(`Leave Message: ${msg}`)
@@ -69,6 +75,7 @@ bot.on("message", async message => {
   }
 
   if (cmd == `${prefix}setdmmessage`) {
+    if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
     var dmmsg = args.join(" ");
     db.set('dmmessage', dmmsg);
     db.fetch('dmmessage').then ( msg =>
@@ -78,6 +85,7 @@ bot.on("message", async message => {
   }
 
   if (cmd == `${prefix}dmmsg`) {
+    if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
     db.fetch('dmmessage').then ( msg =>
       let DMmsgEmbed = new Discord.RichEmbed()
       .setDescription(`Join DM Message: ${msg}`)
