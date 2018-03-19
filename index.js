@@ -25,7 +25,7 @@ bot.on("message", async message => {
     var chid = args[0];
     db.set('msgchannel', chid);
     db.fetch('msgchannel').then ( id =>
-      let msgchannelEmbed = new Discord.RichEmbed()
+      var msgchannelEmbed = new Discord.RichEmbed()
       .setDescription(`Join/Leave Message channel set to ID: ${id}`)
       message.channel.send(msgchannelEmbed));
   }
@@ -33,7 +33,7 @@ bot.on("message", async message => {
   if (cmd == `${prefix}msgchannel`) {
     if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
     db.fetch('msgchannel').then ( id =>
-      let msgchannelEmbed = new Discord.RichEmbed()
+      var msgchannelEmbed = new Discord.RichEmbed()
       .setDescription(`Join/Leave Message channel ID: ${id}`)
       message.channel.send(msgchannelEmbed));
   }
@@ -43,7 +43,7 @@ bot.on("message", async message => {
     var jmsg = args.join(" ");
     db.set('joinmessage', jmsg);
     db.fetch('joinmessage').then ( msg =>
-      let joinmsgEmbed = new Discord.RichEmbed()
+      var joinmsgEmbed = new Discord.RichEmbed()
       .setDescription(`Join Message set to: ${msg}`)
       message.channel.send(joinmsgEmbed));
   }
@@ -51,7 +51,7 @@ bot.on("message", async message => {
   if (cmd == `${prefix}joinmsg`) {
     if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
     db.fetch('joinmessage').then ( msg =>
-      let joinmsgEmbed = new Discord.RichEmbed()
+      var joinmsgEmbed = new Discord.RichEmbed()
       .setDescription(`Join Message: ${msg}`)
       message.channel.send(joinmsgEmbed));
   }
@@ -61,7 +61,7 @@ bot.on("message", async message => {
     var lmsg = args.join(" ");
     db.set('leavemessage', lmsg);
     db.fetch('leavemessage').then ( msg =>
-      let leavemsgEmbed = new Discord.RichEmbed()
+      var leavemsgEmbed = new Discord.RichEmbed()
       .setDescription(`Leave Message set to: ${msg}`)
       message.channel.send(msgchannelEmbed));
   }
@@ -69,7 +69,7 @@ bot.on("message", async message => {
   if (cmd == `${prefix}leavemsg`) {
     if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
     db.fetch('leavemessage').then ( msg =>
-      let leavemsgEmbed = new Discord.RichEmbed()
+      var leavemsgEmbed = new Discord.RichEmbed()
       .setDescription(`Leave Message: ${msg}`)
       message.channel.send(msgchannelEmbed));
   }
@@ -79,7 +79,7 @@ bot.on("message", async message => {
     var dmmsg = args.join(" ");
     db.set('dmmessage', dmmsg);
     db.fetch('dmmessage').then ( msg =>
-      let DMmsgEmbed = new Discord.RichEmbed()
+      var DMmsgEmbed = new Discord.RichEmbed()
       .setDescription(`Join DM Message set to: ${msg}`)
       message.channel.send(DMmsgEmbed));
   }
@@ -87,7 +87,7 @@ bot.on("message", async message => {
   if (cmd == `${prefix}dmmsg`) {
     if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
     db.fetch('dmmessage').then ( msg =>
-      let DMmsgEmbed = new Discord.RichEmbed()
+      var DMmsgEmbed = new Discord.RichEmbed()
       .setDescription(`Join DM Message: ${msg}`)
       message.channel.send(DMmsgEmbed));
   }
@@ -97,8 +97,9 @@ bot.on('guildMemberAdd', member => {
   db.fetch(`msgchannel`).then (i => {
     db.fetch(`dmmessage`).then (dm => {
       db.fetch(`joinmessage`).then (j => {
-        let Join = new Discord.RichEmbed()
-        .setDescription(j)
+        var jm = j.text.replace('{user}', member).replace('{members}', member.guild.memberCount));
+        var Join = new Discord.RichEmbed()
+        .setDescription(jm)
         .setColor("#1fba2f")
         i.send(Join);
         member.send(dm);
@@ -110,8 +111,9 @@ bot.on('guildMemberAdd', member => {
 bot.on('guildMemberRemove', member => {
   db.fetch(`msgchannel`).then (i => {
     db.fetch(`leavemessage`).then (l => {
-      let Leave = new Discord.RichEmbed()
-      .setDescription(l)
+      var lm = l.text.replace('{user}', member).replace('{members}', member.guild.memberCount));
+      var Leave = new Discord.RichEmbed()
+      .setDescription(lm)
       .setColor("#1fba2f")
       i.send(Leave);
     })
