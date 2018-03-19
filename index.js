@@ -39,91 +39,150 @@ bot.on("message", async message => {
   if (cmd == `${prefix}setmessagechannel`) {
     if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
     var chid = args[0];
-    con.query(`SELECT * FROM donbot-config WHERE id = messagechannel`, (err, rows) => {
+    con.query(`SELECT * FROM donbotconfig WHERE name = 'messagechannel'`, (err, rows) => {
       let sql = `UPDATE donbotconfig SET value = '${chid}' WHERE name = 'messagechannel'`;
       con.query(sql, console.log);
     });
-    db.set('msgchannel', chid);
-    db.fetch('msgchannel').then ( id => {
+    con.query("SELECT * FROM donbotconfig WHERE name = 'messagechannel'", (err, rows) => {
+      if(err) throw err;
+
+      let id = rows[0].value;
       var msgchannelEmbed = new Discord.RichEmbed()
-      .setDescription(`Join/Leave Message channel set to ID: ${id}`)
-      message.channel.send(msgchannelEmbed)});
-  }
+      .setDescription(`Join/Leave Message channel set to ID: ${id}`);
+      message.channel.send(msgchannelEmbed);
+      });
+    }
 
   if (cmd == `${prefix}messagechannel`) {
     if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
-    db.fetch('msgchannel').then ( id => {
+    con.query("SELECT * FROM donbotconfig WHERE name = 'messagechannel'", (err, rows) => {
+      if(err) throw err;
+
+      let id = rows[0].value;
       var msgchannelEmbed = new Discord.RichEmbed()
-      .setDescription(`Join/Leave Message channel ID: ${id}`)
-      message.channel.send(msgchannelEmbed)});
+      .setDescription(`Join/Leave Message channel set to ID: ${id}`);
+      message.channel.send(msgchannelEmbed);
+      });
   }
 
   if (cmd == `${prefix}setjoinmessage`) {
     if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
     var jmsg = args.join(" ");
-    db.set('joinmessage', jmsg);
-    db.fetch('joinmessage').then ( msg => {
+    con.query(`SELECT * FROM donbotconfig WHERE name = 'joinmessage'`, (err, rows) => {
+      let sql = `UPDATE donbotconfig SET value = '${jmsg}' WHERE name = 'joinmessage'`;
+      con.query(sql, console.log);
+    });
+    con.query("SELECT * FROM donbotconfig WHERE name = 'joinmessage'", (err, rows) => {
+      if(err) throw err;
+
+      let msg = rows.value;
       var joinmsgEmbed = new Discord.RichEmbed()
-      .setDescription(`Join Message set to: ${msg}`)
-      message.channel.send(joinmsgEmbed)});
+      .setDescription(`Join Message: ${msg}`);
+      message.channel.send(joinmsgEmbed);
+      });
   }
 
   if (cmd == `${prefix}joinmessage`) {
     if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
-    db.fetch('joinmessage').then ( msg => {
+    con.query("SELECT * FROM donbotconfig WHERE name = 'joinmessage'", (err, rows) => {
+      if(err) throw err;
+
+      let msg = rows.value;
       var joinmsgEmbed = new Discord.RichEmbed()
-      .setDescription(`Join Message: ${msg}`)
-      message.channel.send(joinmsgEmbed)});
+      .setDescription(`Join Message: ${msg}`);
+      message.channel.send(joinmsgEmbed);
+      });
   }
 
   if (cmd == `${prefix}setleavemessage`) {
     if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
     var lmsg = args.join(" ");
-    db.set('leavemessage', lmsg);
-    db.fetch('leavemessage').then ( msg => {
+    con.query(`SELECT * FROM donbotconfig WHERE name = 'leavemessage'`, (err, rows) => {
+      let sql = `UPDATE donbotconfig SET value = '${lmsg}' WHERE name = 'leavemessage'`;
+      con.query(sql, console.log);
+    });
+    con.query("SELECT * FROM donbotconfig WHERE name = 'leavemessage'", (err, rows) => {
+      if(err) throw err;
+
+      let msg = rows.value;
       var leavemsgEmbed = new Discord.RichEmbed()
-      .setDescription(`Leave Message set to: ${msg}`)
-      message.channel.send(leavemsgEmbed)});
+      .setDescription(`Leave Message: ${msg}`);
+      message.channel.send(leavemsgEmbed);
+      });
   }
 
   if (cmd == `${prefix}leavemessage`) {
     if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
-    db.fetch('leavemessage').then ( msg => {
+    con.query("SELECT * FROM donbotconfig WHERE name = 'leavemessage'", (err, rows) => {
+      if(err) throw err;
+
+      let msg = rows.value;
       var leavemsgEmbed = new Discord.RichEmbed()
-      .setDescription(`Leave Message: ${msg}`)
-      message.channel.send(leavemsgEmbed)});
+      .setDescription(`Leave Message: ${msg}`);
+      message.channel.send(leavemsgEmbed);
+      });
   }
 
   if (cmd == `${prefix}setdmmessage`) {
     if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
     var dmmsg = args.join(" ");
-    db.set('dmmessage', dmmsg);
-    db.fetch('dmmessage').then ( msg => {
-      var DMmsgEmbed = new Discord.RichEmbed()
-      .setDescription(`Join DM Message set to: ${msg}`)
-      message.channel.send(DMmsgEmbed)});
+    con.query(`SELECT * FROM donbotconfig WHERE name = 'dmmessage'`, (err, rows) => {
+      let sql = `UPDATE donbotconfig SET value = '${dmmsg}' WHERE name = 'dmmessage'`;
+      con.query(sql, console.log);
+    });
+    con.query("SELECT * FROM donbotconfig WHERE name = 'dmmessage'", (err, rows) => {
+      if(err) throw err;
+
+      let msg = rows.value;
+      var dmmsgEmbed = new Discord.RichEmbed()
+      .setDescription(`DM Message: ${msg}`);
+      message.channel.send(dmmsgEmbed);
+      });
   }
 
   if (cmd == `${prefix}dmmessage`) {
     if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
-    db.fetch('dmmessage').then ( msg => {
-      var DMmsgEmbed = new Discord.RichEmbed()
-      .setDescription(`Join DM Message: ${msg}`)
-      message.channel.send(DMmsgEmbed)});
-  }
+    con.query("SELECT * FROM donbotconfig WHERE name = 'dmmessage'", (err, rows) => {
+      if(err) throw err;
+
+      let msg = rows.value;
+      var dmmsgEmbed = new Discord.RichEmbed()
+      .setDescription(`DM Message: ${msg}`);
+      message.channel.send(dmmsgEmbed);
+      });
+    }
 });
 
 bot.on('guildMemberAdd', member => {
-  db.fetch(`msgchannel`).then (i => {
-    db.fetch(`dmmessage`).then (dm => {
-      db.fetch(`joinmessage`).then (j => {
+  con.query("SELECT * FROM donbotconfig WHERE name = 'messagechannel'", (err, rows) => {
+    if(err) throw err;
+
+    let id = rows[0].value;
+    var msgCh = member.guild.channels.find("id", id);
+    con.query("SELECT * FROM donbotconfig WHERE name = 'dmmessage'", (err, rows) => {
+      if(err) throw err;
+
+      let msg = rows.join;
+      var dmmsgEmbed = new Discord.RichEmbed()
+      .setDescription(`DM Message: ${msg}`);
+      message.channel.send(dmmsgEmbed);
+      con.query("SELECT * FROM donbotconfig WHERE name = 'joinmessage'", (err, rows) => {
+        if(err) throw err;
+
+        let msg = rows[0].value;
+        var dmmsgEmbed = new Discord.RichEmbed()
+        .setDescription(`DM Message: ${msg}`);
+        message.channel.send(dmmsgEmbed);
+        });
+      });
+    });
         var msgCh = member.guild.channels.find("id", i);
         var jm = j.replace('{user}', member).replace('{members}', member.guild.memberCount);
         var Join = new Discord.RichEmbed()
         .setDescription(jm)
         .setColor("#1fba2f")
         msgCh.send(Join);
-        member.send(dm);
+      member.send(dm);
       })
     })
   })
