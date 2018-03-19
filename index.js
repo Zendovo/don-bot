@@ -97,11 +97,12 @@ bot.on('guildMemberAdd', member => {
   db.fetch(`msgchannel`).then (i => {
     db.fetch(`dmmessage`).then (dm => {
       db.fetch(`joinmessage`).then (j => {
+        var msgCh = message.guild.channels.find("id", i);
         var jm = j.replace('{user}', member).replace('{members}', member.guild.memberCount);
         var Join = new Discord.RichEmbed()
         .setDescription(jm)
         .setColor("#1fba2f")
-        i.send(Join);
+        msgCh.send(Join);
         member.send(dm);
       })
     })
@@ -111,11 +112,12 @@ bot.on('guildMemberAdd', member => {
 bot.on('guildMemberRemove', member => {
   db.fetch(`msgchannel`).then (i => {
     db.fetch(`leavemessage`).then (l => {
+      var msgCh = message.guild.channels.find("id", i);
       var lm = l.replace('{user}', member).replace('{members}', member.guild.memberCount);
       var Leave = new Discord.RichEmbed()
       .setDescription(lm)
       .setColor("#1fba2f")
-      i.send(Leave);
+      msgCh.send(Leave);
     })
   })
 });
