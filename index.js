@@ -170,8 +170,8 @@ bot.on('guildMemberAdd', member => {
         let msg = rows[0].value;
         var jm = msg.replace('{user}', member).replace('{members}', member.guild.memberCount);
         var joinmsgEmbed = new Discord.RichEmbed()
-        .setDescription(`${jm}`);
-        .setColor("#1fba2f")
+        .setDescription(`${jm}`)
+        .setColor("#1fba2f");
         message.channel.send(joinmsgEmbed);
         });
       });
@@ -190,8 +190,8 @@ bot.on('guildMemberRemove', member => {
         let msg = rows[0].value;
         var lm = msg.replace('{user}', member).replace('{members}', member.guild.memberCount);
         var leavemsgEmbed = new Discord.RichEmbed()
-        .setDescription(`${lm}`);
-        .setColor("#ce1d1a")
+        .setDescription(`${lm}`)
+        .setColor("#ce1d1a");
         message.channel.send(leavemsgEmbed);
         });
       });
