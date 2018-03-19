@@ -97,7 +97,7 @@ bot.on('guildMemberAdd', member => {
   db.fetch(`msgchannel`).then (i => {
     db.fetch(`dmmessage`).then (dm => {
       db.fetch(`joinmessage`).then (j => {
-        var jm = j.text.replace('{user}', member).replace('{members}', member.guild.memberCount));
+        var jm = j.text.replace('{user}', member).replace('{members}', member.guild.memberCount);
         var Join = new Discord.RichEmbed()
         .setDescription(jm)
         .setColor("#1fba2f")
