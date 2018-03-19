@@ -97,7 +97,7 @@ bot.on('guildMemberAdd', member => {
   db.fetch(`msgchannel`).then (i => {
     db.fetch(`dmmessage`).then (dm => {
       db.fetch(`joinmessage`).then (j => {
-        var jm = j.text.replace('{user}', member).replace('{members}', member.guild.memberCount);
+        var jm = j.replace('{user}', member).replace('{members}', member.guild.memberCount);
         var Join = new Discord.RichEmbed()
         .setDescription(jm)
         .setColor("#1fba2f")
@@ -111,7 +111,7 @@ bot.on('guildMemberAdd', member => {
 bot.on('guildMemberRemove', member => {
   db.fetch(`msgchannel`).then (i => {
     db.fetch(`leavemessage`).then (l => {
-      var lm = l.text.replace('{user}', member).replace('{members}', member.guild.memberCount);
+      var lm = l.replace('{user}', member).replace('{members}', member.guild.memberCount);
       var Leave = new Discord.RichEmbed()
       .setDescription(lm)
       .setColor("#1fba2f")
