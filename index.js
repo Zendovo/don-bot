@@ -158,43 +158,44 @@ bot.on('guildMemberAdd', member => {
     if(err) throw err;
 
     let id = rows[0].value;
+    var msgCh = member.guild.channels.find("id", id);
     con.query("SELECT * FROM donbotconfig WHERE name = 'dmmessage'", (err, rows) => {
       if(err) throw err;
 
-      let msg = rows[0].value;
-      var dmmsgEmbed = new Discord.RichEmbed()
-      .setDescription(`DM Message: ${msg}`);
-      message.channel.send(dmmsgEmbed);
+      let dm = rows[0].value;
+      member.channel.send(dm);
       con.query("SELECT * FROM donbotconfig WHERE name = 'joinmessage'", (err, rows) => {
         if(err) throw err;
 
         let msg = rows[0].value;
-        var dmmsgEmbed = new Discord.RichEmbed()
-        .setDescription(`DM Message: ${msg}`);
-        message.channel.send(dmmsgEmbed);
+        var jm = msg.replace('{user}', member).replace('{members}', member.guild.memberCount);
+        var joinmsgEmbed = new Discord.RichEmbed()
+        .setDescription(`${jm}`);
+        .setColor("#1fba2f")
+        message.channel.send(joinmsgEmbed);
         });
       });
     });
-        var msgCh = member.guild.channels.find("id", i);
-        var jm = j.replace('{user}', member).replace('{members}', member.guild.memberCount);
-        var Join = new Discord.RichEmbed()
-        .setDescription(jm)
-        .setColor("#1fba2f")
-        msgCh.send(Join);
-      member.send(dm);
 });
 
 bot.on('guildMemberRemove', member => {
-  db.fetch(`msgchannel`).then (i => {
-    db.fetch(`leavemessage`).then (l => {
-      var msgCh = member.guild.channels.find("id", i);
-      var lm = l.replace('{user}', member).replace('{members}', member.guild.memberCount);
-      var Leave = new Discord.RichEmbed()
-      .setDescription(lm)
-      .setColor("#1fba2f")
-      msgCh.send(Leave);
-    })
-  })
+  con.query("SELECT * FROM donbotconfig WHERE name = 'messagechannel'", (err, rows) => {
+    if(err) throw err;
+
+    let id = rows[0].value;
+    var msgCh = member.guild.channels.find("id", id);
+      con.query("SELECT * FROM donbotconfig WHERE name = 'leavemessage'", (err, rows) => {
+        if(err) throw err;
+
+        let msg = rows[0].value;
+        var lm = msg.replace('{user}', member).replace('{members}', member.guild.memberCount);
+        var leavemsgEmbed = new Discord.RichEmbed()
+        .setDescription(`${lm}`);
+        .setColor("#ce1d1a")
+        message.channel.send(leavemsgEmbed);
+        });
+      });
+    });
 });
 
 bot.login(process.env.token);
