@@ -5,24 +5,6 @@ const fs = require("fs");
 bot.commands = new Discord.Collection();
 var db = require('quick.db')
 
-fs.readdir("./commands/", (err, files) => {
-
-  if (err) console.log(err);
-
-  let jsfile = files.filter(f => f.split(".").pop() === "js")
-  if (jsfile.length <= 0){
-    console.log("Couldn't find commands.")
-    return;
-  }
-
-  jsfile.forEach((f, i) => {
-    let props = require(`./commands/${f}`);
-    console.log(`${f} loaded!`);
-    bot.commands.set(props.help.name, props);
-  });
-
-});
-
 //Bot turns on
  bot.on("ready", async () => {
    console.log(`${bot.user.username} is online!`);
@@ -38,8 +20,11 @@ bot.on("message", async message => {
   let cmd = messageArray[0];
   let args = messageArray.slice(1);
 
-  let commandfile = bot.commands.get(cmd.slice(prefix.length));
-  if(commandfile) commandfile.run(bot,message,args,prefix,db);
+  if (cmd == `${prefix}setmsgchannel`) {
+    var chid = args[0];
+    db.set('msgchannel', chid)
+    db.fetch('msgchannel').then ( id => message.channel.send(`Join/Leave Message channel set to ID: ${id}`));
+  }
 });
 
 bot.login(process.env.token);
