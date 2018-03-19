@@ -7,23 +7,23 @@ const editJsonFile = require("edit-json-file");
 
 let file = editJsonFile(`${__dirname}/botconfig.json`);
 
-fs.readdir("./commands/", (err, files) => {
-
-  if (err) console.log(err);
-
-  let jsfile = files.filter(f => f.split(".").pop() === "js")
-  if (jsfile.length <= 0){
-    console.log("Couldn't find commands.")
-    return;
-  }
-
-  jsfile.forEach((f, i) => {
-    let props = require(`./commands/${f}`);
-    console.log(`${f} loaded!`);
-    bot.commands.set(props.help.name, props);
-  });
-
-});
+// fs.readdir("./commands/", (err, files) => {
+// 
+//   if (err) console.log(err);
+// 
+//   let jsfile = files.filter(f => f.split(".").pop() === "js")
+//   if (jsfile.length <= 0){
+//     console.log("Couldn't find commands.")
+//     return;
+//   }
+// 
+//   jsfile.forEach((f, i) => {
+//     let props = require(`./commands/${f}`);
+//     console.log(`${f} loaded!`);
+//     bot.commands.set(props.help.name, props);
+//   });
+// 
+// });
 
 //Bot turns on
  bot.on("ready", async () => {
@@ -40,8 +40,14 @@ bot.on("message", async message => {
   let cmd = messageArray[0];
   let args = messageArray.slice(1);
 
-  let commandfile = bot.commands.get(cmd.slice(prefix.length));
-  if(commandfile) commandfile.run(bot,message,args,prefix,file);
+  if (cmd == `${prefix}setmsgchannel`) {
+    var chid = args[0];
+    file.set(`"msgchannel"`, chid);
+    message.channel.send("Set!")
+  }
+
+  // let commandfile = bot.commands.get(cmd.slice(prefix.length));
+  // if(commandfile) commandfile.run(bot,message,args,prefix,file);
 });
 
 bot.login("NDI1MjEwNjU2NTY0NzA3MzI4.DZEIHg.5SRwryq7LR3NW2bj-l7E5e3qJA0");
