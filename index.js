@@ -75,7 +75,7 @@ bot.on("message", async message => {
     con.query("SELECT * FROM donbotconfig WHERE name = 'joinmessage'", (err, rows) => {
       if(err) throw err;
 
-      let msg = rows.join(" ").value;
+      let msg = rows[0].value;
       var joinmsgEmbed = new Discord.RichEmbed()
       .setDescription(`Join Message: ${msg}`);
       message.channel.send(joinmsgEmbed);
@@ -87,7 +87,7 @@ bot.on("message", async message => {
     con.query("SELECT * FROM donbotconfig WHERE name = 'joinmessage'", (err, rows) => {
       if(err) throw err;
 
-      let msg = rows.value;
+      let msg = rows[0].value;
       var joinmsgEmbed = new Discord.RichEmbed()
       .setDescription(`Join Message: ${msg}`);
       message.channel.send(joinmsgEmbed);
@@ -104,7 +104,7 @@ bot.on("message", async message => {
     con.query("SELECT * FROM donbotconfig WHERE name = 'leavemessage'", (err, rows) => {
       if(err) throw err;
 
-      let msg = rows.value;
+      let msg = rows[0].value;
       var leavemsgEmbed = new Discord.RichEmbed()
       .setDescription(`Leave Message: ${msg}`);
       message.channel.send(leavemsgEmbed);
@@ -116,7 +116,7 @@ bot.on("message", async message => {
     con.query("SELECT * FROM donbotconfig WHERE name = 'leavemessage'", (err, rows) => {
       if(err) throw err;
 
-      let msg = rows.value;
+      let msg = rows[0].value;
       var leavemsgEmbed = new Discord.RichEmbed()
       .setDescription(`Leave Message: ${msg}`);
       message.channel.send(leavemsgEmbed);
@@ -133,7 +133,7 @@ bot.on("message", async message => {
     con.query("SELECT * FROM donbotconfig WHERE name = 'dmmessage'", (err, rows) => {
       if(err) throw err;
 
-      let msg = rows.value;
+      let msg = rows[0].value;
       var dmmsgEmbed = new Discord.RichEmbed()
       .setDescription(`DM Message: ${msg}`);
       message.channel.send(dmmsgEmbed);
@@ -145,7 +145,7 @@ bot.on("message", async message => {
     con.query("SELECT * FROM donbotconfig WHERE name = 'dmmessage'", (err, rows) => {
       if(err) throw err;
 
-      let msg = rows.value;
+      let msg = rows[0].value;
       var dmmsgEmbed = new Discord.RichEmbed()
       .setDescription(`DM Message: ${msg}`);
       message.channel.send(dmmsgEmbed);
@@ -158,11 +158,10 @@ bot.on('guildMemberAdd', member => {
     if(err) throw err;
 
     let id = rows[0].value;
-    var msgCh = member.guild.channels.find("id", id);
     con.query("SELECT * FROM donbotconfig WHERE name = 'dmmessage'", (err, rows) => {
       if(err) throw err;
 
-      let msg = rows.join;
+      let msg = rows[0].value;
       var dmmsgEmbed = new Discord.RichEmbed()
       .setDescription(`DM Message: ${msg}`);
       message.channel.send(dmmsgEmbed);
