@@ -20,7 +20,7 @@ bot.on("message", async message => {
   let cmd = messageArray[0];
   let args = messageArray.slice(1);
 
-  if (cmd == `${prefix}setmsgchannel`) {
+  if (cmd == `${prefix}setmessagechannel`) {
     if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
     var chid = args[0];
     db.set('msgchannel', chid);
@@ -30,7 +30,7 @@ bot.on("message", async message => {
       message.channel.send(msgchannelEmbed)});
   }
 
-  if (cmd == `${prefix}msgchannel`) {
+  if (cmd == `${prefix}messagechannel`) {
     if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
     db.fetch('msgchannel').then ( id => {
       var msgchannelEmbed = new Discord.RichEmbed()
@@ -48,7 +48,7 @@ bot.on("message", async message => {
       message.channel.send(joinmsgEmbed)});
   }
 
-  if (cmd == `${prefix}joinmsg`) {
+  if (cmd == `${prefix}joinmessage`) {
     if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
     db.fetch('joinmessage').then ( msg => {
       var joinmsgEmbed = new Discord.RichEmbed()
@@ -63,15 +63,15 @@ bot.on("message", async message => {
     db.fetch('leavemessage').then ( msg => {
       var leavemsgEmbed = new Discord.RichEmbed()
       .setDescription(`Leave Message set to: ${msg}`)
-      message.channel.send(msgchannelEmbed)});
+      message.channel.send(leavemsgEmbed)});
   }
 
-  if (cmd == `${prefix}leavemsg`) {
+  if (cmd == `${prefix}leavemessage`) {
     if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
     db.fetch('leavemessage').then ( msg => {
       var leavemsgEmbed = new Discord.RichEmbed()
       .setDescription(`Leave Message: ${msg}`)
-      message.channel.send(msgchannelEmbed)});
+      message.channel.send(leavemsgEmbed)});
   }
 
   if (cmd == `${prefix}setdmmessage`) {
@@ -84,7 +84,7 @@ bot.on("message", async message => {
       message.channel.send(DMmsgEmbed)});
   }
 
-  if (cmd == `${prefix}dmmsg`) {
+  if (cmd == `${prefix}dmmessage`) {
     if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
     db.fetch('dmmessage').then ( msg => {
       var DMmsgEmbed = new Discord.RichEmbed()
