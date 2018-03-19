@@ -195,7 +195,6 @@ bot.on('guildMemberRemove', member => {
         message.channel.send(leavemsgEmbed);
         });
       });
-    });
 });
 
 bot.login(process.env.token);
