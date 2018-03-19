@@ -97,7 +97,7 @@ bot.on('guildMemberAdd', member => {
   db.fetch(`msgchannel`).then (i => {
     db.fetch(`dmmessage`).then (dm => {
       db.fetch(`joinmessage`).then (j => {
-        var msgCh = guild.channels.find("id", i);
+        var msgCh = member.guild.channels.find("id", i);
         var jm = j.replace('{user}', member).replace('{members}', member.guild.memberCount);
         var Join = new Discord.RichEmbed()
         .setDescription(jm)
@@ -112,7 +112,7 @@ bot.on('guildMemberAdd', member => {
 bot.on('guildMemberRemove', member => {
   db.fetch(`msgchannel`).then (i => {
     db.fetch(`leavemessage`).then (l => {
-      var msgCh = guild.channels.find("id", i);
+      var msgCh = member.guild.channels.find("id", i);
       var lm = l.replace('{user}', member).replace('{members}', member.guild.memberCount);
       var Leave = new Discord.RichEmbed()
       .setDescription(lm)
