@@ -111,7 +111,7 @@ bot.on('guildMemberAdd', member => {
 bot.on('guildMemberRemove', member => {
   db.fetch(`msgchannel`).then (i => {
     db.fetch(`leavemessage`).then (l => {
-      var lm = l.text.replace('{user}', member).replace('{members}', member.guild.memberCount));
+      var lm = l.text.replace('{user}', member).replace('{members}', member.guild.memberCount);
       var Leave = new Discord.RichEmbed()
       .setDescription(lm)
       .setColor("#1fba2f")
