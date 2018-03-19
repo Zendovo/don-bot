@@ -40,7 +40,7 @@ bot.on("message", async message => {
     if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
     var chid = args[0];
     con.query(`SELECT * FROM donbot-config WHERE id = messagechannel`, (err, rows) => {
-      let sql = `UPDATE donbot-config SET value = '${chid}' WHERE name = 'messagechannel'`
+      let sql = `UPDATE donbotconfig SET value = '${chid}' WHERE name = 'messagechannel'`;
       con.query(sql, console.log);
     });
     db.set('msgchannel', chid);
