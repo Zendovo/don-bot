@@ -54,4 +54,4 @@ bot.on("message", async message => {
   // if(commandfile) commandfile.run(bot,message,args,prefix,file);
 });
 
-bot.login("NDI1MjEwNjU2NTY0NzA3MzI4.DZEIHg.5SRwryq7LR3NW2bj-l7E5e3qJA0");
+//bot.login("NDI1MjEwNjU2NTY0NzA3MzI4.DZEIHg.5SRwryq7LR3NW2bj-l7E5e3qJA0");
