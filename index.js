@@ -146,8 +146,9 @@ bot.on("message", async message => {
       if(err) throw err;
 
       let msg = rows[0].value;
+      var dm = msg.replace('{user}', member).replace('{members}', member.guild.memberCount);
       var dmmsgEmbed = new Discord.RichEmbed()
-      .setDescription(`DM Message: ${msg}`);
+      .setDescription(`DM Message: ${dm}`);
       message.channel.send(dmmsgEmbed);
       });
     }
