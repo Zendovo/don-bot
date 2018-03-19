@@ -4,6 +4,7 @@ const bot = new Discord.Client({disableEveryone: true});
 const fs = require("fs");
 bot.commands = new Discord.Collection();
 var db = require('quick.db')
+const mysql = require("mysql");
 
 //Bot turns on
  bot.on("ready", async () => {
@@ -11,6 +12,21 @@ var db = require('quick.db')
    bot.user.setActivity(`${botconfig.prefix}help`);
  });
 
+//MySQL connection
+var con = mysql.createConnection({
+    host: "sql3.freemysqlhosting.net",
+    user: "sql3227560",
+    password: "Qfr5jq2QPa",
+    database: "sql3227560"
+});
+
+con.connect(err => {
+    if(err) throw err;
+    console.log("Connected to database!");
+    con.query("SHOW TABLES", console.log);
+});
+
+//Commands
 bot.on("message", async message => {
   if (message.author.bot) return;
   if (message.channel.type === "dm") return;
@@ -23,6 +39,10 @@ bot.on("message", async message => {
   if (cmd == `${prefix}setmessagechannel`) {
     if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
     var chid = args[0];
+    con.query(`SELECT * FROM donbot-config WHERE id = messagechannel`, (err, rows) => {
+      let sql = `UPDATE donbot-config SET messagechannel = ${chid}`
+      con.query(sql, console.log);
+    });
     db.set('msgchannel', chid);
     db.fetch('msgchannel').then ( id => {
       var msgchannelEmbed = new Discord.RichEmbed()
