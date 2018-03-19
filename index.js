@@ -172,7 +172,7 @@ bot.on('guildMemberAdd', member => {
         var joinmsgEmbed = new Discord.RichEmbed()
         .setDescription(`${jm}`)
         .setColor("#1fba2f");
-        message.channel.send(joinmsgEmbed);
+        msgCh.channel.send(joinmsgEmbed);
         });
       });
     });
@@ -192,9 +192,9 @@ bot.on('guildMemberRemove', member => {
         var leavemsgEmbed = new Discord.RichEmbed()
         .setDescription(`${lm}`)
         .setColor("#ce1d1a");
-        message.channel.send(leavemsgEmbed);
+        msgCh.channel.send(leavemsgEmbed);
         });
-      });
+    });
 });
 
 bot.login(process.env.token);
