@@ -14,10 +14,10 @@ const mysql = require("mysql");
 
 //MySQL connection
 var con = mysql.createConnection({
-    host: process.env.host,
-    user: process.env.user,
-    password: process.env.password,
-    database: process.env.database
+  host: process.env.host,
+  user: process.env.user,
+  password: process.env.password,
+  database: process.env.database
 });
 
 con.connect(err => {
@@ -40,7 +40,7 @@ bot.on("message", async message => {
     let helpEmbed = new Discord.RichEmbed()
     .setDescription("These commands can only be performed if you have `Bot Commander` role")
     .setColor("#ffffff")
-    .addField("Basic Info", `Prefix of bot   | ${prefix}<command>\n**${prefix}help**   | Shows this help menu`)
+    .addField("Basic Info", `**Prefix of bot**   | ${prefix}<command>\n**${prefix}help**   | Shows this help menu`)
     .addField("Config Commands", `**${prefix}setmessagechannel <Channel ID>**   | Set the channel where the join/leave messages will show.\n**${prefix}setjoinmessage <content>**   | Set the join message\n**${prefix}setleavemessage <content>**   | Set the leave message\n**${prefix}setdmmessage <content>**   | Sets the message to be sent to a user's DM when he/she joins the server`)
     .addField("Other Commands", `**${prefix}messagechannel**   | Shows the message channel ID\n**${prefix}joinmessage** | Shows the set Join Message\n**${prefix}leavemessage**   | Shows the set leave message\**${prefix}dmmessage**   | Shows the set DM message`)
     .setFooter("Note: \nhelp command can be run by anyone but the rest you need the Bot Commander role.\n<> = Required [] = Optional");
@@ -53,16 +53,12 @@ bot.on("message", async message => {
     con.query(`SELECT * FROM donbotconfig WHERE name = 'messagechannel'`, (err, rows) => {
       let sql = `UPDATE donbotconfig SET value = '${chid}' WHERE name = 'messagechannel'`;
       con.query(sql, console.log);
-    });
-    con.query("SELECT * FROM donbotconfig WHERE name = 'messagechannel'", (err, rows) => {
-      if(err) throw err;
-
-      let id = rows[0].value;
       var msgchannelEmbed = new Discord.RichEmbed()
-      .setDescription(`Join/Leave Message channel set to ID: ${id}`);
+      .setDescription(`Join/Leave Message channel has been set!`);
+      .setColor("#67d81c");
       message.channel.send(msgchannelEmbed);
-      });
-    }
+    });
+  }
 
   if (cmd == `${prefix}messagechannel`) {
     if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
@@ -71,7 +67,8 @@ bot.on("message", async message => {
 
       let id = rows[0].value;
       var msgchannelEmbed = new Discord.RichEmbed()
-      .setDescription(`Join/Leave Message channel set to ID: ${id}`);
+      .setDescription(`Join/Leave Message channel set to ID: ${id}`)
+      .setColor("#1cd893");
       message.channel.send(msgchannelEmbed);
       });
   }
@@ -82,15 +79,11 @@ bot.on("message", async message => {
     con.query(`SELECT * FROM donbotconfig WHERE name = 'joinmessage'`, (err, rows) => {
       let sql = `UPDATE donbotconfig SET value = '${jmsg}' WHERE name = 'joinmessage'`;
       con.query(sql, console.log);
-    });
-    con.query("SELECT * FROM donbotconfig WHERE name = 'joinmessage'", (err, rows) => {
-      if(err) throw err;
-
-      let msg = rows[0].value;
       var joinmsgEmbed = new Discord.RichEmbed()
-      .setDescription(`Join Message: ${msg}`);
+      .setDescription(`Join Message has been set!`)
+      .setColor("#67d81c");
       message.channel.send(joinmsgEmbed);
-      });
+    });
   }
 
   if (cmd == `${prefix}joinmessage`) {
@@ -100,7 +93,8 @@ bot.on("message", async message => {
 
       let msg = rows[0].value;
       var joinmsgEmbed = new Discord.RichEmbed()
-      .setDescription(`Join Message: ${msg}`);
+      .setDescription(`Join Message: ${msg}`)
+      .setColor("#1fba2f");
       message.channel.send(joinmsgEmbed);
       });
   }
@@ -111,15 +105,11 @@ bot.on("message", async message => {
     con.query(`SELECT * FROM donbotconfig WHERE name = 'leavemessage'`, (err, rows) => {
       let sql = `UPDATE donbotconfig SET value = '${lmsg}' WHERE name = 'leavemessage'`;
       con.query(sql, console.log);
-    });
-    con.query("SELECT * FROM donbotconfig WHERE name = 'leavemessage'", (err, rows) => {
-      if(err) throw err;
-
-      let msg = rows[0].value;
       var leavemsgEmbed = new Discord.RichEmbed()
-      .setDescription(`Leave Message: ${msg}`);
+      .setDescription(`Leave Message has been set!`)
+      .setColor("#67d81c");
       message.channel.send(leavemsgEmbed);
-      });
+    });
   }
 
   if (cmd == `${prefix}leavemessage`) {
@@ -129,7 +119,8 @@ bot.on("message", async message => {
 
       let msg = rows[0].value;
       var leavemsgEmbed = new Discord.RichEmbed()
-      .setDescription(`Leave Message: ${msg}`);
+      .setDescription(`Leave Message: ${msg}`)
+      .setColor("#ce1d1a");
       message.channel.send(leavemsgEmbed);
       });
   }
@@ -140,15 +131,11 @@ bot.on("message", async message => {
     con.query(`SELECT * FROM donbotconfig WHERE name = 'dmmessage'`, (err, rows) => {
       let sql = `UPDATE donbotconfig SET value = '${dmmsg}' WHERE name = 'dmmessage'`;
       con.query(sql, console.log);
-    });
-    con.query("SELECT * FROM donbotconfig WHERE name = 'dmmessage'", (err, rows) => {
-      if(err) throw err;
-
-      let msg = rows[0].value;
       var dmmsgEmbed = new Discord.RichEmbed()
-      .setDescription(`DM Message: ${msg}`);
+      .setDescription(`DM Message has been set!`)
+      .setColor("#67d81c");
       message.channel.send(dmmsgEmbed);
-      });
+    });
   }
 
   if (cmd == `${prefix}dmmessage`) {
@@ -159,7 +146,8 @@ bot.on("message", async message => {
       let msg = rows[0].value;
       var dm = msg.replace('{user}', member).replace('{members}', member.guild.memberCount);
       var dmmsgEmbed = new Discord.RichEmbed()
-      .setDescription(`DM Message: ${dm}`);
+      .setDescription(`DM Message: ${dm}`)
+      .setColor("#1fba2f");
       message.channel.send(dmmsgEmbed);
       });
     }
