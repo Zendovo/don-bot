@@ -14,10 +14,10 @@ const mysql = require("mysql");
 
 //MySQL connection
 var con = mysql.createConnection({
-    host: "sql3.freemysqlhosting.net",
-    user: "sql3227560",
-    password: "Qfr5jq2QPa",
-    database: "sql3227560"
+    host: process.env.host,
+    user: process.env.user,
+    password: process.env.password,
+    database: process.env.database
 });
 
 con.connect(err => {
