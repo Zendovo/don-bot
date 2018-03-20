@@ -54,7 +54,7 @@ bot.on("message", async message => {
       let sql = `UPDATE donbotconfig SET value = '${chid}' WHERE name = 'messagechannel'`;
       con.query(sql, console.log);
       var msgchannelEmbed = new Discord.RichEmbed()
-      .setDescription(`Join/Leave Message channel has been set!`);
+      .setDescription(`Join/Leave Message channel has been set!`)
       .setColor("#67d81c");
       message.channel.send(msgchannelEmbed);
     });
