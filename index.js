@@ -39,7 +39,7 @@ bot.on("message", async message => {
   if (cmd == `${prefix}help`) {
     let helpEmbed = new Discord.RichEmbed()
     .setDescription("These commands can only be performed if you have `Bot Commander` role")
-    .setColor("")
+    .setColor("#ffffff")
     .addField("Basic Info", `Prefix of bot   | ${prefix}<command>\n**${prefix}help**   | Shows this help menu`)
     .addField("Config Commands", `**${prefix}setmessagechannel <Channel ID>**   | Set the channel where the join/leave messages will show.\n**${prefix}setjoinmessage <content>**   | Set the join message\n**${prefix}setleavemessage <content>**   | Set the leave message\n**${prefix}setdmmessage <content>**   | Sets the message to be sent to a user's DM when he/she joins the server`)
     .addField("Other Commands", `**${prefix}messagechannel**   | Shows the message channel ID\n**${prefix}joinmessage** | Shows the set Join Message\n**${prefix}leavemessage**   | Shows the set leave message\**${prefix}dmmessage**   | Shows the set DM message`)
