@@ -261,7 +261,7 @@ bot.on("message", async message => {
     con.query(`SELECT * FROM donbotconfig WHERE name = 'staffroleid'`, (err, rows) => {
       let sql = `UPDATE donbotconfig SET value = '${sid}' WHERE name = 'staffroleid'`;
       con.query(sql, console.log);
-      var dmmsgEmbed = new Discord.RichEmbed()
+      var staffroleEmbed = new Discord.RichEmbed()
       .setDescription(`Staff role has been set!`)
       .setColor("#67d81c");
       message.channel.send(staffroleEmbed);
