@@ -238,6 +238,7 @@ bot.on("message", async message => {
           var channame = message.channel.name
           if (!channame.startsWith("ticket-")) return message.channel.send(":x:This is not a ticket channel!");
           if (!channame.startsWith("ticket-") && (channame.contains = "log")) return message.channel.send(":x:This is not a ticket channel!");
+          message.channel.delete();
           var closetc2 = new Discord.RichEmbed()
             .setDescription("**Ticket Closed**")
             .setColor("#ed3434")
