@@ -248,7 +248,7 @@ bot.on("message", async message => {
     }
   }
 
-  if (cmd == `${prefix}bootinfo`) {
+  if (cmd == `${prefix}botinfo`) {
     let infoEmbed = new Discord.RichEmbed()
     .addField("Author", "Zendovo#4334")
     .setColor("#f44e42");
