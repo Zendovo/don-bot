@@ -3,6 +3,7 @@ const Discord = require("discord.js");
 const bot = new Discord.Client({disableEveryone: true});
 const fs = require("fs");
 bot.commands = new Discord.Collection();
+var randomstring = require("randomstring");
 var db = require('quick.db')
 const mysql = require("mysql");
 
@@ -151,6 +152,123 @@ bot.on("message", async message => {
       message.channel.send(dmmsgEmbed);
       });
     }
+
+  if (cmd == `${prefix}new`) {
+    message.channel.send("Generating Ticket ID...");
+      var uname = message.author.username;
+      var uid = message.author.id;
+      var randomid = randomstring.generate({  length: 6,  charset: 'abcdefghijklmnopqrstuvwxyz'});
+      var tid = `ticket-${randomid}`;
+      con.query("SELECT * FROM donbotconfig WHERE name = 'dmmessage'", (err, rows) => {
+        if(err) throw err;
+
+        let value = rows[0].value;
+      });
+      var sid = message.guild.roles.find("id", value);
+      var tcexists = message.guild.channels.find("name", tid);
+      if (tcexists) return message.channel.send("Please execute the command again, the generated ID exists already");
+      message.channel.send("Creating Ticket Channel...");
+      var ticketlog = message.guild.channels.find("name", "ticket-log");
+      if (!ticketlog) return message.channel.send("Error!, no `ticket-log` channel! Contact a server admin.");
+      if (!args[0]) {
+      message.guild.createChannel(`${tid}`, "text", [{
+        id: uid,
+        allow: ['VIEW_CHANNEL', 'SEND_MESSAGES']
+      },
+      {
+        id: sid,
+        allow: ['VIEW_CHANNEL', 'SEND_MESSAGES']
+      },
+      {
+        id: message.guild.defaultRole,
+        deny: ['VIEW_CHANNEL', 'SEND_MESSAGES']
+      }]);
+      message.channel.send("Ticket Created!");
+      var createdticketEmbed = new Discord.RichEmbed()
+        .setDescription("**Ticket Created**")
+        .setColor("#3def15")
+        .addField("Created by:", `${message.author}`, true)
+        .addField("Ticket-ID:", `${tid}`, true)
+        .setFooter(`User ID: ${uid}`);
+      ticketlog.send(createdticketEmbed);
+    } else {
+      if (!message.member.roles.find("id", value)) return message.channel.send("Sorry, you can't create a ticket for someone else.");
+      var auid = args[0];
+      message.guild.createChannel(`${tid}`, "text", [{
+        id: uid,
+        allow: ['VIEW_CHANNEL', 'SEND_MESSAGES']
+      },
+      {
+        id: sid,
+        allow: ['VIEW_CHANNEL', 'SEND_MESSAGES']
+      },
+      {
+        id: message.guild.defaultRole,
+        deny: ['VIEW_CHANNEL', 'SEND_MESSAGES']
+      },
+      {
+        id: auid,
+        allow: ['VIEW_CHANNEL', 'SEND_MESSAGES']
+      }]);
+      message.channel.send("Ticket Created!");
+      var createdticketEmbed = new Discord.RichEmbed()
+        .setDescription("**Ticket Created**")
+        .setColor("#3def15")
+        .addField("Created by:", `${message.author}`, true)
+        .addField("Created for:", `<@${auid}>`, true)
+        .addField("Ticket-ID:", `${tid}`, true)
+        .setFooter(`User ID: ${uid}`);
+      ticketlog.send(createdticketEmbed);
+    }
+  }
+
+  if (cmd == `${prefix}close`) {
+    var tlog = message.guild.channels.find("name", "ticket-log");
+    con.query("SELECT * FROM donbotconfig WHERE name = 'dmmessage'", (err, rows) => {
+      if(err) throw err;
+
+      let value = rows[0].value;
+    });
+    var sid = message.guild.roles.find("id", value);
+    if (!message.member.roles.find("id", value)) return message.channel.send("Sorry, you can't close a ticket please ask a staff to close it.");
+      if (args[0]) {
+        var tid = args[0];
+        var tchan = message.guild.channels.find("name", `${tid}`);
+        if (!tchan) return message.channel.send(":x: Given Ticket ID doesn't exist!");
+        message.channel.send("Closing Ticket...");
+        tchan.delete();
+        message.channel.send("Ticket Closed!");
+        var closetc1 = new Discord.RichEmbed()
+        .setDescription("**Ticket Closed**")
+        .setColor("#ed3434")
+        .addField("Ticket Closed by:", `${message.author}`, true)
+        .addField("Ticket-ID:", `${tchan}`, true);
+        tlog.send(closetc1);
+      } else {
+          var channame = message.channel.name
+          if (!channame.startsWith("ticket-")) return message.channel.send(":x:This is not a ticket channel!");
+          if (!channame.startsWith("ticket-") && (channame.contains = "log")) return message.channel.send(":x:This is not a ticket channel!");
+          var closetc2 = new Discord.RichEmbed()
+            .setDescription("**Ticket Closed**")
+            .setColor("#ed3434")
+            .addField("Ticket Closed by:", `${message.author}`, true)
+            .addField("Ticket-ID:", `${channame}`, true);
+            tlog.send(closetc2);
+    }
+  }
+
+  if (cmd == `${prefix}setstaffroleid`) {
+    if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
+    var sid = args[0];
+    con.query(`SELECT * FROM donbotconfig WHERE name = 'staffroleid'`, (err, rows) => {
+      let sql = `UPDATE donbotconfig SET value = '${sid}' WHERE name = 'staffroleid'`;
+      con.query(sql, console.log);
+      var dmmsgEmbed = new Discord.RichEmbed()
+      .setDescription(`Staff role has been set!`)
+      .setColor("#67d81c");
+      message.channel.send(staffroleEmbed);
+    });
+  }
 });
 
 bot.on('guildMemberAdd', member => {
