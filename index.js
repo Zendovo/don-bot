@@ -155,15 +155,11 @@ bot.on("message", async message => {
     }
 
   if (cmd == `${prefix}new`) {
-    con.query("SELECT * FROM donbotconfig WHERE name = 'dmmessage'", (err, rows) => {
-      if(err) throw err;
-      let value = rows[0].value;
     message.channel.send("Generating Ticket ID...");
-      var uname = message.author.username;
       var uid = message.author.id;
       var randomid = randomstring.generate({  length: 6,  charset: 'abcdefghijklmnopqrstuvwxyz'});
       var tid = `ticket-${randomid}`;
-      var sid = message.guild.roles.find("name", value);
+      var sid = message.guild.roles.find("name", "Support Team");
       var tcexists = message.guild.channels.find("name", tid);
       if (tcexists) return message.channel.send("Please execute the command again, the generated ID exists already");
       message.channel.send("Creating Ticket Channel...");
@@ -219,7 +215,6 @@ bot.on("message", async message => {
         .setFooter(`User ID: ${uid}`);
       ticketlog.send(createdticketEmbed);
     }
-    });
   }
 
   if (cmd == `${prefix}close`) {
