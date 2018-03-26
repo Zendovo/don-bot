@@ -218,11 +218,8 @@ bot.on("message", async message => {
   }
 
   if (cmd == `${prefix}close`) {
-    con.query("SELECT * FROM donbotconfig WHERE name = 'dmmessage'", (err, rows) => {
-      if(err) throw err;
-      let value = rows[0].value;
     var tlog = message.guild.channels.find("name", "ticket-log");
-    var sid = message.guild.roles.find("id", value);
+    var sid = message.guild.roles.find("name", "Support Team");
     if (!message.member.roles.find("id", value)) return message.channel.send("Sorry, you can't close a ticket please ask a staff to close it.");
       if (args[0]) {
         var tid = args[0];
@@ -248,7 +245,6 @@ bot.on("message", async message => {
             .addField("Ticket-ID:", `${channame}`, true);
             tlog.send(closetc2);
     }
-    });
   }
 
   if (cmd == `${prefix}bootinfo`) {
