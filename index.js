@@ -163,7 +163,7 @@ bot.on("message", async message => {
       var uid = message.author.id;
       var randomid = randomstring.generate({  length: 6,  charset: 'abcdefghijklmnopqrstuvwxyz'});
       var tid = `ticket-${randomid}`;
-      var sid = message.guild.roles.find("id", value);
+      var sid = message.guild.roles.find("name", value);
       var tcexists = message.guild.channels.find("name", tid);
       if (tcexists) return message.channel.send("Please execute the command again, the generated ID exists already");
       message.channel.send("Creating Ticket Channel...");
