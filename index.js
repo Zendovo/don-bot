@@ -41,7 +41,7 @@ bot.on("message", async message => {
     let helpEmbed = new Discord.RichEmbed()
     .setDescription("These commands can only be performed if you have `Bot Commander` role")
     .setColor("#ffffff")
-    .addField("Basic Info", `**Prefix of bot**   | ${prefix}<command>\n**${prefix}help**   | Shows this help menu`)
+    .addField("Basic Info", `**Prefix of bot**   | ${prefix}<command>\n**${prefix}help**   | Shows this help menu\n**${prefix}botinfo**   | Shows bot info`)
     .addField("Config Commands", `**${prefix}setmessagechannel <Channel ID>**   | Set the channel where the join/leave messages will show.\n**${prefix}setjoinmessage <content>**   | Set the join message\n**${prefix}setleavemessage <content>**   | Set the leave message\n**${prefix}setdmmessage <content>**   | Sets the message to be sent to a user's DM when he/she joins the server`)
     .addField("Other Commands", `**${prefix}messagechannel**   | Shows the message channel ID\n**${prefix}joinmessage** | Shows the set Join Message\n**${prefix}leavemessage**   | Shows the set leave message\n**${prefix}dmmessage**   | Shows the set DM message`)
     .addField("Tickets:", `**${prefix}new [User-ID]**   | Creates a new ticket. If a Staff includes id of another user is included it creates a ticket for someone else.\n**${prefix}close [id]**   | Closes given id ticket, if not given closes the ticket you are typing in. *Staff Only*`)
@@ -251,17 +251,11 @@ bot.on("message", async message => {
     });
   }
 
-  if (cmd == `${prefix}setstaffroleid`) {
-    if (!message.member.roles.find('name', 'Bot Commander')) return message.channel.send(":x: You do not have the permission!");
-    var sid = args[0];
-    con.query(`SELECT * FROM donbotconfig WHERE name = 'staffroleid'`, (err, rows) => {
-      let sql = `UPDATE donbotconfig SET value = '${sid}' WHERE name = 'staffroleid'`;
-      con.query(sql, console.log);
-      var staffroleEmbed = new Discord.RichEmbed()
-      .setDescription(`Staff role has been set!`)
-      .setColor("#67d81c");
-      message.channel.send(staffroleEmbed);
-    });
+  if (cmd == `${prefix}bootinfo`) {
+    let infoEmbed = new Discord.RichEmbed()
+    .addField("Author", "Zendovo#4334")
+    .setColor("#f44e42");
+    message.channel.send(infoEmbed);
   }
 });
 
