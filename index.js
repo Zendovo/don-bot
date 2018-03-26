@@ -220,7 +220,7 @@ bot.on("message", async message => {
   if (cmd == `${prefix}close`) {
     var tlog = message.guild.channels.find("name", "ticket-log");
     var sid = message.guild.roles.find("name", "Support Team");
-    if (!message.member.roles.find("id", value)) return message.channel.send("Sorry, you can't close a ticket please ask a staff to close it.");
+    if (!message.member.roles.find("name", "Support Team")) return message.channel.send("Sorry, you can't close a ticket please ask a staff to close it.");
       if (args[0]) {
         var tid = args[0];
         var tchan = message.guild.channels.find("name", `${tid}`);
